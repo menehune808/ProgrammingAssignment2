@@ -22,14 +22,20 @@ makeCacheMatrix <- function(x = matrix()) {
   } # end get-function() 
 
   # set inverse matrix result object
-  setInverse <- function(inver){
-    inv_result <<- inver
+  setInverse <- function(solve){
+    inv_result <<- solve 
   } # end setInverse()
 
   # get inverse matrix object
   getInverse <- function(){
-    inv_result
+    return(inv_result)
   } # end getInverse()
+
+  # list of functions
+  list( set = set, 
+        get = get,
+        setInverse = setInverse,
+        getInverse = getInverse)
 
 } # end makeCacheMatrix()
 
@@ -37,9 +43,33 @@ makeCacheMatrix <- function(x = matrix()) {
 ## Write a short comment describing this function
 ##
 ## Function computes the inverse of the special matrix returned
-## by mackCacheMatrix
+## by makeCacheMatrix
 ##
 cacheSolve <- function(x, ...) {
         ## Return a matrix that is the inverse of 'x'
+
+  # get inverse
+  inv_result <- x$getInverse()
+
+  # check if already done
+  if( !is.null(inv_result)){
+    message("getting cached data")
+    return(inv_result)
+  } # end if(!null) 
+
+  # get a copy of the matrix
+  data <- x$get()
+ 
+  # process the inverse of the matrix
+  # for this assignment we can assume that the matrices
+  # are all invertible, however we will check to make sure 
+  # that the matrix is a square
+  inv_result <- solve(data,...)
+
+  # set the caching object with the inverse solution
+  x$setInverse(inv_result)
+
+  # return result
+  inv_result
 
 } # end cacheSolve()
