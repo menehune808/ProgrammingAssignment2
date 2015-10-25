@@ -12,9 +12,15 @@
 ##     cacheSolve(matrix): Returns the inverse of the 
 ##                         matrix returned by makeCacheMatrix()
 ##
+
+
+
+##
+## Function creates a special matrix caching object 
+##
 makeCacheMatrix <- function(x = matrix()) {
 
-  # object that holds the inverse of the matrix
+  # internal object that holds the inverse matrix
   inv_result <- NULL
 
   # internal function to set matrix
@@ -47,9 +53,8 @@ makeCacheMatrix <- function(x = matrix()) {
 } # end makeCacheMatrix()
 
 
-## Write a short comment describing this function
 ##
-## Function computes the inverse of the special matrix returned
+## Function computes the inverse of the special matrix object returned
 ## by makeCacheMatrix
 ##
 cacheSolve <- function(x, ...) {
