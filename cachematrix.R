@@ -1,9 +1,16 @@
-## Put comments here that give an overall description of what your
-## functions do
-
-## Write a short comment describing this function
 ##
-## Function creates a special matrix object that can cache its inverse
+## Title:  cachematrix.R
+##
+## Author: gilbert maerina
+##
+## Date:   20151023
+##
+## Purpose:
+##     makeCacheMatrix(matrix) : Function returns a special matrix 
+##                         object that can cache its inverse
+##
+##     cacheSolve(matrix): Returns the inverse of the special
+##                         matrix returned by makeCacheMatrix()
 ##
 makeCacheMatrix <- function(x = matrix()) {
 
@@ -55,7 +62,10 @@ cacheSolve <- function(x, ...) {
   if( !is.null(inv_result)){
     message("getting cached data")
     return(inv_result)
-  } # end if(!null) 
+  }
+  else {
+    message("no cached data, processing")
+  } # end if-else(!null) 
 
   # get a copy of the matrix
   data <- x$get()
@@ -64,8 +74,13 @@ cacheSolve <- function(x, ...) {
   # for this assignment we can assume that the matrices
   # are all invertible, however we will check to make sure 
   # that the matrix is a square
-  inv_result <- solve(data,...)
-
+  if( nrow(data) -- ncol(data) ){
+    inv_result <- solve(data,...)
+  } 
+  else {
+    stop("Cannot process non-square matrix")
+  } # end if-else(row==col)
+  
   # set the caching object with the inverse solution
   x$setInverse(inv_result)
 
