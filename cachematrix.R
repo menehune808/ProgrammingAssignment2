@@ -6,10 +6,10 @@
 ## Date:   20151023
 ##
 ## Purpose:
-##     makeCacheMatrix(matrix) : Function returns a special matrix 
-##                         object that can cache its inverse
+##     makeCacheMatrix(matrix) : Function returns a vector of matrix  
+##                         objects 
 ##
-##     cacheSolve(matrix): Returns the inverse of the special
+##     cacheSolve(matrix): Returns the inverse of the 
 ##                         matrix returned by makeCacheMatrix()
 ##
 makeCacheMatrix <- function(x = matrix()) {
@@ -38,7 +38,7 @@ makeCacheMatrix <- function(x = matrix()) {
     return(inv_result)
   } # end getInverse()
 
-  # list of functions
+  # list of functions accesible through indexing device, '$'
   list( set = set, 
         get = get,
         setInverse = setInverse,
@@ -74,7 +74,7 @@ cacheSolve <- function(x, ...) {
   # for this assignment we can assume that the matrices
   # are all invertible, however we will check to make sure 
   # that the matrix is a square
-  if( nrow(data) -- ncol(data) ){
+  if( nrow(data) == ncol(data) ){
     inv_result <- solve(data,...)
   } 
   else {
